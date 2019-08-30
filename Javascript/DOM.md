@@ -4,6 +4,11 @@
 2. Interacting with the DOM
 3. Get Elements By ...
 4. Changing Text & HTML Content
+5. DOM Nodes
+6. Traversing the DOM
+7. Events
+8. Event Bubbling
+9. Interacting with Forms
 
 
 
@@ -112,7 +117,201 @@ bookList.innerHTML += '<p>This is how you add HTML</p>';
 
 
 
+## DOM Nodes
 
+Node 의 종류는 정수 값으로 표시된다. 각 정수 값이 의미하는 바는 [참고](https://www.w3schools.com/jsref/prop_node_nodetype.asp)
+
+> 3번 타입인 Text 는 HTML 문서 내의 linebreak 도 포함한다.
+
+#### Node.nodeType
+
+`Node.nodeType` 속성을 통해 노드 타입을 알 수 있다.
+
+```javascript
+const banner = document.querySelector('#page-banner');
+console.log('#page-banner node type is:', banner.nodeType) // node type is: 1
+// 1 은 Element 를 의미함
+```
+
+
+
+#### Node.nodeName
+
+`Node.nodeName` 속성을 통해 노드의 이름을 알 수 있다.
+
+```javascript
+const banner = document.querySelector('#page-banner');
+console.log('#page-banner node name is:', banner.nodeName) // node name is: DIV
+```
+
+
+
+#### Node.hasChildNodes()
+
+`Node.hasChildNodes()` 함수를 통해 자식 노드를 갖고 있는지 알 수 있다. 
+
+```javascript
+const banner = document.querySelector('#page-banner');
+console.log('#page-banner has child nodes:', banner.hasChildNodes()); 
+```
+
+
+
+#### Node.cloneNode(Boolean)
+
+`Node.cloneNode(Boolean)` 
+
+`True` 는 자식 노드까지 모두 복제
+
+`False` 일 경우 해당 노드 자체만 복제
+
+
+
+## Traversing the DOM
+
+#### Node.parentNode & Node.parentElement
+
+부모 노드 혹은 요소를 반환. 둘의 차이점은 다음과 같다.
+
+```javascript
+// Node
+console.log('the parent Node is:', document.childNodes[0].parentNode); // Docuemnt
+// Element
+console.log('the parent element is', document.childNodes[0].parentElement); // Null
+```
+
+*부모 관계에 있는 것이 HTML Element 이 아닐 수도 있다.*
+
+
+
+#### Node.childNodes & Node.children
+
+`Node.childNodes` : `linebreak` 와 같은 노드들도 포함한 `NodeList` 가 반환된다. 
+
+`Node.children` : *HTML Element* `HTML Collection` 으로 반환된다. 
+
+
+
+#### Node.nextSibling & Node.nextElementSibling
+
+현재 노드의 다음 형제 노드를 확인할 수 있다.
+
+```javascript
+const bookList = document.querySelector('#book-list');
+
+console.log('book-list next sibling is:', bookList.nextSibling);
+// text (3번 타입의 노드 lineBreak)
+console.log('book-list next element sibling is:', bookList.nextElementSibling);
+```
+
+
+
+#### Node.PreviousSibling & Node.PreviousElementSibling
+
+현재 노드의 그 전 형제 노드를 확인할 수 있다.
+
+```javascript
+const bookList = document.querySelector('#book-list');
+
+console.log('book-list previous sibling is:', bookList.previousSibling);
+// text (3번 타입의 노드 lineBreak)
+console.log('book-list previous element sibling is:', bookList.previousElementSibling);
+```
+
+
+
+## Event
+
+[이벤트의 종류들](https://www.w3schools.com/jsref/dom_obj_event.asp)
+
+버튼을 누르거나 `<form>` 의 `<input />` 에 글을 쓰거나, 혹은 클릭 할 때 등 발생하는 이벤트들을 어떻게 캐치하고 반응하도록 할 것인가?
+*이벤트를 캐치할 수 있는 event listener 생성한다. 해당 이벤트에 동작이 일어나도록 콜백 함수를 선언한다.*
+
+```javascript
+var h2 = document.querySelector('#book-list h2');
+
+h2.addEventListener('click', function(e){
+  console.log(e.target); // HTML 형식으로 반환
+  console.log(e); // 이벤트의 정보가 담긴 객체 반환
+});
+```
+
+예제 코드
+
+```javascript
+var btns = document.querySelectorAll('#book-list .delete'); // NodeList 반환
+
+// 반복문을 사용하여 모든 버튼에 이벤트를 설정해준다.
+// 추후에 li 새로 추가 되면 새로 생성된 li 는 이벤트 리스너가 없다.
+// 때문에 효율적인 방법은 아니다.
+btns.forEach(function(btn) {
+	btn.addEventListener('click', function(e){
+		
+		const li = e.target.parentElement;
+
+		li.parentNode.removeChild(li);
+		// li.parentElement.removeChild(li); // 왜 두개 다 똑같이 작동
+	});
+});
+
+const link = document.querySelector('#page-banner a');
+
+link.addEventListener('click', function(e) {
+	e.preventDefault(); // 기존 이벤트의 발생을 막는다
+	console.log('navigation to', e.target.textContent, ' was prevented.');
+});
+```
+
+
+
+## Event Bubbling
+
+이벤트 버블링은 인위적으로 이를 막아주지 않는 이상 항상 일어난다.
+
+이벤트 버블링은 특정 요소에서 이벤트가 발생했을 때, 해당 이벤트가 상위 요소들로 순차적으로 올라가며 전달된다.
+
+예를들어 `<li>` 태그를 클릭하여 이벤트가 발생했을 시, 상위 태그인 `<ul>` 태그로 이벤트가 전달된다. 계속하여 상위 요소로 전달된다.
+
+
+
+예제 코드
+
+자식 요소에서 발생하는 이벤트에 동작을 일으키기 위해, 콜백 함수를 부모 요소의 이벤트 리스너에 선언 해준다.
+
+```javascript
+const list = document.querySelector('#book-list ul');
+
+list.addEventListener('click', function(e){
+  if(e.target.className == 'delete') {
+    const li = e.target.parentElement;
+    list.removeChild(li);
+  }
+});
+```
+
+
+
+## Interacting with Forms
+
+`document.forms` : HTML 문서 내의 모든 form 요소를 `HTML Collection` 으로 반환한다. 
+
+
+
+예제 코드
+
+`form` 의 `submit` 이벤트 발생을 인위적으로 막는다. 그리고 `input` 에 들어가 있던 value 들을 콘솔에 출력한다.
+
+여기서 `input` 은 당연하게도 `form` 의 자식이다.
+
+```javascript
+const addForm = document.forms['add-book'];
+
+addForm.addEventListener('submit', function(e){
+	e.preventDefault();
+  const value = e.target.querySelector('input[type="text"]').value; // 선택자 주의깊게 보기
+  console.log(value);
+});
+```
 
 
 
