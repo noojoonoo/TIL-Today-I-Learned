@@ -1,4 +1,4 @@
-#DOM 
+# DOM 
 
 1. DOM(Documented Object Model)이란?
 2. Interacting with the DOM
@@ -47,7 +47,7 @@ var bookList = document.getElementById('book-list');
 
 
 
-####document.getElementsByClassName('HTML 요소의 Class 명') & document.getElementsByTagName('HTML 요소의 태그명') 
+#### document.getElementsByClassName('HTML 요소의 Class 명') & document.getElementsByTagName('HTML 요소의 태그명') 
 
 반환하는 값이 배열(Array)처럼 보일 수 있지만 유사 배열 객체인 ```HTML Collection```이다.
 
@@ -80,7 +80,7 @@ console.log(Array.isArray(Array.from(titles))); // true
 
 선택자와 일치하는 document 내 HTML 요소들의 `NodeList` 를 반환한다. (반복 가능한 객체이다)
 
-*일치하는 요소가 단 **한 개** 뿐이여도 `[]` 안에  `NodeList`로 반환된다*.
+**일치하는 요소가 단 *한 개* 뿐이여도 `[]` 안에  `NodeList`로 반환된다**.
 
 
 
