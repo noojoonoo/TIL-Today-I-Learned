@@ -9,8 +9,14 @@
 7. Events
 8. Event Bubbling
 9. Interacting with Forms
+10. Creating Elements
+11. Styles & Classes
+12. Attributes
+13. Checkboxes & Change Events
 
 
+
+>  Main Resoure: [The Net Ninja - Javascript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gfoKa5la9dsdCNpuey2s-V) 
 
 ## DOM이란?
 
@@ -68,7 +74,7 @@ console.log(Array.isArray(Array.from(titles))); // true
 
 
 
-####document.querySelector() & document.querySelectorAll()
+#### document.querySelector() & document.querySelectorAll()
 
 `document.querySelector(selector)` 
 
@@ -315,6 +321,71 @@ addForm.addEventListener('submit', function(e){
 
 
 
+## Creating Elements
+
+`document.createElement(태그명)` : HTML 요소를 만들어 반환한다.
+
+`Node.appendChild(노드)` : 자식 노드로 구성된 리스트 마지막에 주어진 노드를 추가한다.
+
+```javascript
+const list = document.querySelector('#book-list ul');
+
+const li = document.createElement('li');
+li.textContent = 'noo';
+
+list.appendChild(li);
+```
 
 
-> Main Resoure: [The Net Ninja - Javascript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gfoKa5la9dsdCNpuey2s-V) 
+
+## Styles & Classes
+
+`Node.style.color` :  특정 노드의 스타일을 접근하여 수정할 수 있다. (CSS 속성인 margin-top 과 같은 속성일 경우 marginTop 으로 접근한다)
+
+`Node.className` : 특정 노드에 클래스 값을 가져오거나 설정할 수 있다.
+
+`Node.classList.add('클래스명')` : 지정한 클래스명을 추가한다. (이미 해당 클래스명이 있을 시 무시한다)
+
+`Node.classList.remove('클래스명')` : 지정한 클래스명을 제거한다.
+
+```javascript
+const li = document.createElement('li');
+
+li.style.color = red;
+li.className = 'list-element';
+li.classList.add('className');
+li.classList.remove('className');
+```
+
+
+
+## Attributes
+
+`Node.getAttribute('속성명')` : 노드의 특정 속성 값을 반환한다. 해당 속성을 갖고 있지 않을 경우 `null` 을 반환한다.
+
+`Node.setAttribute('속성명', 속성 값')` : 노드의 속성을 설정할 수 있다.
+
+`Node.hasAttribute('속성명')` : 노드가 해당 속성을 갖고 있는지 판별할 수 있다.
+
+`Node.removeAttribute('속성명')` : 노드에서 해당 속성을 삭제한다.
+
+
+
+## Checkboxes & Change Events
+
+`<input type='checkbox' />` 요소는 `checked` 라는 `state` 를 갖는다.
+
+```javascript
+const list = document.querySelector('#book-list ul');
+
+const hideBox = document.querySelector('#hide');
+hideBox.addEventListener('change', function(e){
+  if(hideBox.checked) {
+    list.style.display = 'none';
+  } else {
+    list.style.display = 'initial';
+  }
+});
+```
+
+>  'change' 라는 이벤트는 언제나 발생하는 이벤트가 아니다. [참고](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)
