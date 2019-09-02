@@ -13,6 +13,9 @@
 11. Styles & Classes
 12. Attributes
 13. Checkboxes & Change Events
+14. Keyup Event (Search Filter)
+15. data-
+16. DomContentLoaded Event
 
 
 
@@ -299,7 +302,7 @@ list.addEventListener('click', function(e){
 
 ## Interacting with Forms
 
-`document.forms` : HTML 문서 내의 모든 form 요소를 `HTML Collection` 으로 반환한다. 
+`document.forms['id 명']` : HTML 문서 내의 모든 form 요소를 `HTML Collection` 으로 반환한다. 
 
 
 
@@ -378,7 +381,7 @@ li.classList.remove('className');
 ```javascript
 const list = document.querySelector('#book-list ul');
 
-const hideBox = document.querySelector('#hide');
+const hideBox = document.querySelector('#hide'); // <input type="checkbox" id="hide"/>
 hideBox.addEventListener('change', function(e){
   if(hideBox.checked) {
     list.style.display = 'none';
@@ -389,3 +392,71 @@ hideBox.addEventListener('change', function(e){
 ```
 
 >  'change' 라는 이벤트는 언제나 발생하는 이벤트가 아니다. [참고](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)
+
+
+
+## Keyup Event (Search Filter)
+
+`HTMLElement.firstElementChild` :  HTML 요소의 가장 첫번 째 자식 요소를 반환한다.
+
+`String.indexOf('string')` : 문자열 내에 인자로 받게된 문자열이 있는지 확인한다. 있을 경우 해당 문자열의 위치를 반환한다. 없을 경우 `-1` 을 반환한다.
+
+```javascript
+// 서치 바에 텍스트를 입력한다.
+// 입력되는 텍스트를 매번 받아 리스트의 책들 제목과 비교한다.
+// 제목을 비교할 때는 검색어와 책 제목을 둘 다 소문자로 바꾼다.
+// 제목이 같으면 보이고 아니면 숨긴다.
+
+const searchBar = document.form['search-books'].querySelector('input');
+searchBar.addEventListener('keyup', function(e){
+  const term = e.target.value.toLowerCase();
+  const books = list.getElementsByTagName('li');
+  Array.from(books).forEach(function(book){
+    const title = book.firstChildElement.textContent;
+    
+    if(title.toLowerCase().indexOf(term) != -1) {
+      book.style.display = 'block';
+    } else {
+      book.style.display = 'none';
+    }
+  });
+});
+```
+
+
+
+## data-
+
+HTML5에서는 HTML 요소에 `data-정보이름` 속성을 이용하여 정보를 저장할 수 있다.
+
+```html
+<div data-age="23" id="noo">
+   junWooKim
+</div>
+```
+
+`javascript` 에서 `data-` 값 참조하기.
+
+```javascript
+var mySelf = document.getElementById('noo');
+mySelf.data.age // 23
+```
+
+
+
+## DOMContentLoaded Event
+
+HTML DOM 을 참고하거나 조작하는 스크립트가  `<head>` 내에서, 혹은 HTML 문서의 상단에서 불러와질 경우 문제가 발생할 수 있다. HTML DOM 이 모두 불러와지기 전에 스크립트가 실행되기 때문이다. 
+
+해당 경우에는 `DomContentLoaded` 이벤트를 핸들링하며 해결한다.
+
+ `DomContentLoaded` 는 최초 HTML 문서가 완전히 로드 및 파싱되었을 때 발생한다. 스타일시트나 이미지 및 서브프레임 로드가 끝나기를 기다리지 않습니다. (MDN)
+
+> `load` 이벤트는 리소스와 그것에 의존하는 리소스들이 모두 로딩 완료될 경우 발생한다.
+
+```javascript
+document.addEventListener('DOMContentLoaded', function(e){
+  // DOM 과 관련된 스크립트 삽입
+})
+```
+
