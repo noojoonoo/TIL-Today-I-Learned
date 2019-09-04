@@ -16,6 +16,7 @@
 14. Keyup Event (Search Filter)
 15. data-
 16. DomContentLoaded Event
+17. DOM Window - setInterval
 
 
 
@@ -229,7 +230,7 @@ console.log('book-list previous element sibling is:', bookList.previousElementSi
 
 
 
-## Event
+## Events
 
 [이벤트의 종류들](https://www.w3schools.com/jsref/dom_obj_event.asp)
 
@@ -245,7 +246,11 @@ h2.addEventListener('click', function(e){
 });
 ```
 
-예제 코드
+
+
+#### click
+
+예제 코드 
 
 ```javascript
 var btns = document.querySelectorAll('#book-list .delete'); // NodeList 반환
@@ -270,6 +275,22 @@ link.addEventListener('click', function(e) {
 	console.log('navigation to', e.target.textContent, ' was prevented.');
 });
 ```
+
+
+
+#### transitionend
+
+Css transition 이 완료 되었을 때 발생하는 이벤트. 
+
+```css
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
+```
+
+
 
 
 
@@ -439,7 +460,7 @@ HTML5에서는 HTML 요소에 `data-정보이름` 속성을 이용하여 정보�
 
 ```javascript
 var mySelf = document.getElementById('noo');
-mySelf.data.age // 23
+mySelf.dataset.age // 23
 ```
 
 
@@ -460,3 +481,8 @@ document.addEventListener('DOMContentLoaded', function(e){
 })
 ```
 
+
+
+## DOM Window - setInterval()
+
+`setInterval(함수, 시간)` : 인자로 주어진 시간마다 해당 함수를 실행시킨다.
