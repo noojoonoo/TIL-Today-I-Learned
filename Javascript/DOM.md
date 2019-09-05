@@ -94,6 +94,12 @@ console.log(Array.isArray(Array.from(titles))); // true
 
 
 
+#### document.documentElement
+
+`document` 의 루트 요소를 반환한다. ex) HTML 문서의 `<html>` 요소
+
+
+
 ## Changing Text & HTML Content
 
 #### Changing Text

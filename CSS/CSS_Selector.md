@@ -37,3 +37,14 @@
 
 
 
+## `:root`
+
+`:root` 는 `CSS pseudo-class` 이며 문서의 루트 요소를 가리키는 선택자이다. `<HTML>` 문서 내에서의 `:root` 는 `<html>` 선택자와 동일하다.
+
+```css
+:root {
+  --main-color: hotpink;
+  --pane-padding: 5px 42px;
+}
+```
+
