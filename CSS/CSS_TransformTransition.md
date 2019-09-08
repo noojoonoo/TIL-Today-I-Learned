@@ -6,6 +6,21 @@
 
 
 
+## `translate`
+
+HTML 요소를 수직 수평으로 2차원 평면 상에서 이동시킨다.
+
+- `translateX()`
+- `translateY()`
+
+```css
+.div {
+	transform: translateX(20px); /* translate(20px, 0) 과 동일 */
+}
+```
+
+
+
 ## `transform-origin`
 
 `transform` 이 적용 될 꼭짓점 (혹은 원점)을 지정할 수 있다. Default 값은 `center` 이다.

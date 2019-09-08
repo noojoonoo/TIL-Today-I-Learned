@@ -26,20 +26,21 @@
 
 ### Attribute
 
-| Selector | Example | Example description |
-| :------- | ------- | ------------------- |
-|          |         |                     |
-|          |         |                     |
-|          |         |                     |
-|          |         |                     |
-|          |         |                     |
-|          |         |                     |
+| Selector            | Example          | Example description                                          |
+| :------------------ | ---------------- | ------------------------------------------------------------ |
+| [attribute]         | [target]         | `target` 속성을 가진 모든 요소들 선택                        |
+| [attribute=value]   | [target=_blank]  | `target="_blank"` 속성을 가진 모든 요소 선택                 |
+| [attribute~=value]  | [title~=flower]  | `title` 속성 값에 *flower* 이 들어가 있는 요소 선택          |
+| [attribute\|=value] | [lang\|=en]      | `lang` 속성 값이 *en* 으로 시작하는 요소 선택 (en-noo, en-foo) |
+| [attribute^=value]  | a[href^="https"] | `<a>` 중 `href` 속성 값의 접두사로 *https* 를 갖는 요소      |
+|                     |                  |                                                              |
+|                     |                  |                                                              |
 
 
 
 ## `:root`
 
-`:root` 는 `CSS pseudo-class` 이며 문서의 루트 요소를 가리키는 선택자이다. `<HTML>` 문서 내에서의 `:root` 는 `<html>` 선택자와 동일하다.
+`:root` 는 `CSS pseudo-class` 이며 문서의 루트 요소를 가리키는 선택자이다. `<HTML>` 문서 내에서의 `:root` 는 `<html>` 선택자와 동일하다. (이곳에 CSS 변수들을 선언하면 어디서든 참조할 수 있다)
 
 ```css
 :root {

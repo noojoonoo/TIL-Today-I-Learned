@@ -372,11 +372,21 @@ list.appendChild(li);
 
 `Node.style.color` :  특정 노드의 스타일을 접근하여 수정할 수 있다. (CSS 속성인 margin-top 과 같은 속성일 경우 marginTop 으로 접근한다)
 
+`Node.style.setProperty('속성명', 속성값)` : 속성명과 속성 값 모두 `string` 의 형태로 집어 넣는다.
+
+예시)
+
+```javascript
+document.docuemntElement.style.setProperty('font-size', '50px');
+```
+
 `Node.className` : 특정 노드에 클래스 값을 가져오거나 설정할 수 있다.
 
 `Node.classList.add('클래스명')` : 지정한 클래스명을 추가한다. (이미 해당 클래스명이 있을 시 무시한다)
 
 `Node.classList.remove('클래스명')` : 지정한 클래스명을 제거한다.
+
+`Node.classList.toggle('클래스명')` : 클래스가 존재한다면 제거하고 `false` 를 반환한다. 존재하지 않으면 추가하고 `true` 를 반환한다.
 
 ```javascript
 const li = document.createElement('li');
